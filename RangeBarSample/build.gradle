@@ -1,17 +1,17 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 dependencies {
-    compile project(':rangebar')
+    implementation project(':rangebar')
 }
 
 android {
 
-    compileSdkVersion 19
-    buildToolsVersion "19.1"
+    compileSdkVersion 26
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
-        minSdkVersion 7
-        targetSdkVersion 19
+        minSdkVersion 16
+        targetSdkVersion 22
     }
 
     sourceSets {
