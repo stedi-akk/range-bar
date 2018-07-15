@@ -57,6 +57,7 @@ public class RangeBar extends View {
     private static final float DEFAULT_THUMB_RADIUS_DP = -1;
     private static final int DEFAULT_THUMB_COLOR_NORMAL = -1;
     private static final int DEFAULT_THUMB_COLOR_PRESSED = -1;
+    private static final int DEFAULT_THUMB_STROKE_COLOR = -1;
 
     // Instance variables for all of the customizable attributes
     private int mTickCount = DEFAULT_TICK_COUNT;
@@ -71,6 +72,7 @@ public class RangeBar extends View {
     private float mThumbRadiusDP = DEFAULT_THUMB_RADIUS_DP;
     private int mThumbColorNormal = DEFAULT_THUMB_COLOR_NORMAL;
     private int mThumbColorPressed = DEFAULT_THUMB_COLOR_PRESSED;
+    private int mThumbStrokeColor = DEFAULT_THUMB_STROKE_COLOR;
 
     // setTickCount only resets indices before a thumb has been pressed or a
     // setThumbIndices() is called, to correspond with intended usage
@@ -126,6 +128,7 @@ public class RangeBar extends View {
         bundle.putFloat("THUMB_RADIUS_DP", mThumbRadiusDP);
         bundle.putInt("THUMB_COLOR_NORMAL", mThumbColorNormal);
         bundle.putInt("THUMB_COLOR_PRESSED", mThumbColorPressed);
+        bundle.putInt("THUMB_STROKE_COLOR", mThumbStrokeColor);
 
         bundle.putInt("LEFT_INDEX", mLeftIndex);
         bundle.putInt("RIGHT_INDEX", mRightIndex);
@@ -155,6 +158,7 @@ public class RangeBar extends View {
             mThumbRadiusDP = bundle.getFloat("THUMB_RADIUS_DP");
             mThumbColorNormal = bundle.getInt("THUMB_COLOR_NORMAL");
             mThumbColorPressed = bundle.getInt("THUMB_COLOR_PRESSED");
+            mThumbStrokeColor = bundle.getInt("THUMB_STROKE_COLOR");
 
             mLeftIndex = bundle.getInt("LEFT_INDEX");
             mRightIndex = bundle.getInt("RIGHT_INDEX");
@@ -218,6 +222,7 @@ public class RangeBar extends View {
                                yPos,
                                mThumbColorNormal,
                                mThumbColorPressed,
+                               mThumbStrokeColor,
                                mThumbRadiusDP,
                                mThumbImageNormal,
                                mThumbImagePressed);
@@ -225,6 +230,7 @@ public class RangeBar extends View {
                                 yPos,
                                 mThumbColorNormal,
                                 mThumbColorPressed,
+                                mThumbStrokeColor,
                                 mThumbRadiusDP,
                                 mThumbImageNormal,
                                 mThumbImagePressed);
@@ -479,6 +485,12 @@ public class RangeBar extends View {
         createThumbs();
     }
 
+    public void setThumbStrokeColor(int thumbStrokeColor)
+    {
+        mThumbStrokeColor = thumbStrokeColor;
+        createThumbs();
+    }
+
     /**
      * Sets the location of each thumb according to the developer's choice.
      * Numbered from 0 to mTickCount - 1 from the left.
@@ -635,6 +647,7 @@ public class RangeBar extends View {
                                yPos,
                                mThumbColorNormal,
                                mThumbColorPressed,
+                               mThumbStrokeColor,
                                mThumbRadiusDP,
                                mThumbImageNormal,
                                mThumbImagePressed);
@@ -642,6 +655,7 @@ public class RangeBar extends View {
                                 yPos,
                                 mThumbColorNormal,
                                 mThumbColorPressed,
+                                mThumbStrokeColor,
                                 mThumbRadiusDP,
                                 mThumbImageNormal,
                                 mThumbImagePressed);

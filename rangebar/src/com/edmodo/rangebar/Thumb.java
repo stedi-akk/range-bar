@@ -18,6 +18,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.TypedValue;
 
@@ -38,9 +39,12 @@ public class Thumb {
     // drawn but no value is given.
     private static final float DEFAULT_THUMB_RADIUS_DP = 14;
 
+    private static final float DEFAULT_THUMB_STROKE_WIDTH_DP = 1;
+
     // Corresponds to android.R.color.holo_blue_light.
     private static final int DEFAULT_THUMB_COLOR_NORMAL = 0xff33b5e5;
     private static final int DEFAULT_THUMB_COLOR_PRESSED = 0xff33b5e5;
+    private static final int DEFAULT_THUMB_STROKE_COLOR = Color.WHITE;
 
     // Member Variables ////////////////////////////////////////////////////////
 
@@ -70,6 +74,7 @@ public class Thumb {
     // mPaint to draw the thumbs if attributes are selected
     private Paint mPaintNormal;
     private Paint mPaintPressed;
+    private Paint mPaintStroke;
 
     // Radius of the new thumb if selected
     private float mThumbRadiusPx;
@@ -77,16 +82,13 @@ public class Thumb {
     // Toggle to select bitmap thumbImage or not
     private boolean mUseBitmap;
 
-    // Colors of the thumbs if they are to be drawn
-    private int mThumbColorNormal;
-    private int mThumbColorPressed;
-
     // Constructors ////////////////////////////////////////////////////////////
 
     Thumb(Context ctx,
           float y,
           int thumbColorNormal,
           int thumbColorPressed,
+          int thumbStrokeColor,
           float thumbRadiusDP,
           int thumbImageNormal,
           int thumbImagePressed) {
@@ -97,7 +99,7 @@ public class Thumb {
         mImagePressed = BitmapFactory.decodeResource(res, thumbImagePressed);
 
         // If any of the attributes are set, toggle bitmap off
-        if (thumbRadiusDP == -1 && thumbColorNormal == -1 && thumbColorPressed == -1) {
+        if (thumbRadiusDP == -1 && thumbColorNormal == -1 && thumbColorPressed == -1 && thumbStrokeColor == -1) {
 
             mUseBitmap = true;
 
@@ -116,24 +118,21 @@ public class Thumb {
                                                            thumbRadiusDP,
                                                            res.getDisplayMetrics());
 
-            if (thumbColorNormal == -1)
-                mThumbColorNormal = DEFAULT_THUMB_COLOR_NORMAL;
-            else
-                mThumbColorNormal = thumbColorNormal;
-
-            if (thumbColorPressed == -1)
-                mThumbColorPressed = DEFAULT_THUMB_COLOR_PRESSED;
-            else
-                mThumbColorPressed = thumbColorPressed;
-
             // Creates the paint and sets the Paint values
             mPaintNormal = new Paint();
-            mPaintNormal.setColor(mThumbColorNormal);
+            mPaintNormal.setColor(thumbColorNormal == -1 ? DEFAULT_THUMB_COLOR_NORMAL : thumbColorNormal);
             mPaintNormal.setAntiAlias(true);
 
             mPaintPressed = new Paint();
-            mPaintPressed.setColor(mThumbColorPressed);
+            mPaintPressed.setColor(thumbColorPressed == -1 ? DEFAULT_THUMB_COLOR_PRESSED : thumbColorPressed);
             mPaintPressed.setAntiAlias(true);
+
+            mPaintStroke = new Paint();
+            mPaintStroke.setStyle(Paint.Style.STROKE);
+            mPaintStroke.setStrokeWidth(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                    DEFAULT_THUMB_STROKE_WIDTH_DP,
+                    res.getDisplayMetrics()));
+            mPaintStroke.setColor(thumbStrokeColor == -1 ? DEFAULT_THUMB_STROKE_COLOR : thumbStrokeColor);
         }
 
         mHalfWidthNormal = mImageNormal.getWidth() / 2f;
@@ -160,6 +159,10 @@ public class Thumb {
 
     public Paint getPaintPressed() {
         return mPaintPressed;
+    }
+
+    public Paint getPaintStroke() {
+        return mPaintStroke;
     }
 
     // Package-Private Methods /////////////////////////////////////////////////
@@ -239,6 +242,8 @@ public class Thumb {
                 canvas.drawCircle(mX, mY, mThumbRadiusPx, mPaintPressed);
             else
                 canvas.drawCircle(mX, mY, mThumbRadiusPx, mPaintNormal);
+
+            canvas.drawCircle(mX, mY, mThumbRadiusPx, mPaintStroke);
         }
     }
 }
