@@ -133,6 +133,7 @@ public class Thumb {
                     DEFAULT_THUMB_STROKE_WIDTH_DP,
                     res.getDisplayMetrics()));
             mPaintStroke.setColor(thumbStrokeColor == -1 ? DEFAULT_THUMB_STROKE_COLOR : thumbStrokeColor);
+            mPaintStroke.setAntiAlias(true);
         }
 
         mHalfWidthNormal = mImageNormal.getWidth() / 2f;
