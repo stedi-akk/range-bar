@@ -314,6 +314,14 @@ public class RangeBar extends View {
         mListener = listener;
     }
 
+    protected Thumb getLeftThumb() {
+        return mLeftThumb;
+    }
+
+    protected Thumb getRightThumb() {
+        return mRightThumb;
+    }
+
     /**
      * Sets the number of ticks in the RangeBar.
      * 

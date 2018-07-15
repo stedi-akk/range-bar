@@ -25,7 +25,7 @@ import android.util.TypedValue;
  * Represents a thumb in the RangeBar slider. This is the handle for the slider
  * that is pressed and slid.
  */
-class Thumb {
+public class Thumb {
 
     // Private Constants ///////////////////////////////////////////////////////
 
@@ -152,6 +152,14 @@ class Thumb {
 
         mX = mHalfWidthNormal;
         mY = y;
+    }
+
+    public Paint getPaintNormal() {
+        return mPaintNormal;
+    }
+
+    public Paint getPaintPressed() {
+        return mPaintPressed;
     }
 
     // Package-Private Methods /////////////////////////////////////////////////

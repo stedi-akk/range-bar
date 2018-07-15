@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 
 dependencies {
-    implementation project(':rangebar')
+//    implementation project(':rangebar')
+    implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
 }
 
 android {
